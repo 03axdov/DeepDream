@@ -33,3 +33,27 @@ def calc_loss(img, model):
         losses.append(loss)
 
     return tf.reduce_sum(losses)
+
+
+def run_deep_dream_simple(img, deepdream, steps=100, learning_rate=0.01):
+    img = tf.keras.applications.inception_v3.preprocess_input(img)
+    img = tf.convert_to_tensor(img)
+    learning_rate = tf.convert_to_tensor(learning_rate)
+    steps_remaining = steps
+    step = 0
+    while steps_remaining:
+        if steps_remaining > 100:
+            run_steps=tf.constant(100)
+        else:
+            run_steps=tf.constant(steps_remaining)
+
+        steps_remaining -= run_steps
+        steps += run_steps
+
+        loss, img = deepdream(img, steps, tf.constant(learning_rate))
+        print(f"Step: {step}, Loss: {loss}")
+
+    result = deprocess(img)
+    show(result)
+
+    return result

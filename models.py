@@ -1,4 +1,5 @@
 import tensorflow as tf
+from utils import calc_loss
 
 
 def inception_v3(include_top=False):
@@ -20,5 +21,18 @@ class DeepDream(tf.Module):
             tf.TensorSpec(shape=[], dtype=tf.float32)
         )
     )
-    def __call__(self, img, steps, step_size):
-        pass
+    def __call__(self, img, steps, learning_rate):
+        print("Tracing")
+        loss = tf.constant(0.0)
+        for n in tf.range(steps):
+            with tf.GradientTape() as tape:
+                tape.watch(img)
+                loss = calc_loss(img, self.model)
+
+            gradients = tape.gradient(loss, img)
+            gradients /= tf.math.reduce_std(gradients) + 1e-8
+
+            img = img + gradients*learning_rate
+            img = tf.clip_by_value(img, -1, 1)
+
+        return loss, img
