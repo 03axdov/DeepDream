@@ -7,7 +7,7 @@ This results in a "dream-like" image as seen below.
   <img src="https://user-images.githubusercontent.com/62298758/191788958-58a42477-1713-497e-8797-3492ee30f2f3.jpg" height="auto" width="500" />
 </p>
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/62298758/191792400-75c70bae-4edf-4ab0-84c9-483343f5002f.jpg" height="auto" width="500" />
+  <img src="https://user-images.githubusercontent.com/62298758/191966158-b8558eb6-7799-4ccf-9ec8-4b82cd98a3b9.jpg" height="auto" width="500" />
 </p>
 
 A simple implementation of DeepDream ^
