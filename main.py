@@ -8,8 +8,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import PIL.Image as Image
 
-from utils import download, show, run_deep_dream_simple
-from models import inception_v3, dream_model, DeepDream
+from utils import *
+from models import *
 
 
 def main():
@@ -59,6 +59,18 @@ def main():
 
     # dream_img = Image.fromarray(img.numpy())
     # dream_img.save("images/dream_img.jpg")
+
+    # shift, img_rolled = random_roll(np.array(original_img), 512)
+    # show(img_rolled)
+
+    get_tiled_gradients = TiledGradient(model)
+    img = run_deep_dream_with_octaves(img=original_img, module=get_tiled_gradients, learning_rate=0.01)
+    img = tf.image.resize(img, base_shape)
+    img = tf.image.convert_image_dtype(img/255.0, dtype=tf.uint8)
+    show(img)
+
+    dream_img = Image.fromarray(img.numpy())
+    dream_img.save("images/dream_img.jpg")
 
 
 if __name__ == "__main__":
