@@ -69,8 +69,8 @@ def main():
     img = tf.image.convert_image_dtype(img/255.0, dtype=tf.uint8)
     show(img)
 
-    dream_img = Image.fromarray(img.numpy())
-    dream_img.save("images/dream_img.jpg")
+    # dream_img = Image.fromarray(img.numpy())
+    # dream_img.save("images/dream_img.jpg")
 
 
 if __name__ == "__main__":
